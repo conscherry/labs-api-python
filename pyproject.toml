@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "labs-api-python"
+version = "0.1.0"
+description = "A user-friendly Python client for the Discord Labs API. This package makes it simple to fetch public data (bots, users, website stats) and post authenticated bot statistics."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+    { name = "Conscherry" }
+]
+keywords = [
+    "conscherry",
+    "labs",
+    "discord",
+    "api",
+    "sdk"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+dependencies = [
+    "httpx>=0.27,<1.0"
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0",
+    "respx>=0.21"
+]
+dev = [
+    "build>=1.2",
+    "twine>=5.0",
+    "ruff>=0.9",
+    "mypy>=1.13"
+]
+
+[project.urls]
+Homepage = "https://labs.conscherry.com/"
+Documentation = "https://labs.conscherry.com/developers/docs/v1"
+Source = "https://github.com/conscherry/labs-api-python"
+Issues = "https://github.com/conscherry/labs-api-python/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_unused_configs = true
+check_untyped_defs = true
