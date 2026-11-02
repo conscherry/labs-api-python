@@ -1,5 +1,5 @@
 from ._version import __version__
-from .client import LabsApiClient
+from .client import DEFAULT_BASE_URL, AsyncLabsApiClient, LabsApiClient
 from .exceptions import (
     LabsAPIAuthError,
     LabsAPIConnectionError,
@@ -11,7 +11,9 @@ from .exceptions import (
 
 __all__ = [
     "__version__",
+    "DEFAULT_BASE_URL",
     "LabsApiClient",
+    "AsyncLabsApiClient",
     "LabsAPIError",
     "LabsAPIAuthError",
     "LabsAPIPermissionError",

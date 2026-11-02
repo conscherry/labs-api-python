@@ -24,6 +24,8 @@ python -m pip install labs-api-python
 
 ## Quick start
 
+### Synchronous Client
+
 ```python
 from labs import LabsApiClient
 
@@ -31,6 +33,31 @@ with LabsApiClient() as client:
     bots = client.list_bots(limit=5)
     print(bots)
 ```
+
+### Asynchronous Client
+
+```python
+import asyncio
+from labs import AsyncLabsApiClient
+
+async def main():
+    async with AsyncLabsApiClient() as client:
+        bots = await client.list_bots(limit=5)
+        print(bots)
+
+asyncio.run(main())
+```
+
+## Client options
+
+| Option | Type | Default |
+| --- | --- | --- |
+| `api_key` | `str` | `LABS_API_KEY` environment variable |
+| `base_url` | `str` (HTTPS only) | `https://labs.conscherry.com/api/v1` |
+| `timeout` | `float` (seconds) | `15.0` |
+| `telemetry` | `bool` | `True` |
+
+Both `LabsApiClient` and `AsyncLabsApiClient` accept the same options and expose the same methods. Close clients with a `with` / `async with` block or call `close()`.
 
 ## Authentication
 
@@ -96,9 +123,10 @@ with LabsApiClient() as client:
 
 ```python
 with LabsApiClient() as client:
+    # Supports guild_count, server_count, and serverCount aliases
     result = client.post_stats(
         bot_id="YOUR_BOT_ID",
-        guild_count=100,
+        server_count=100,
         user_count=5000,
     )
     print(result)
@@ -125,9 +153,11 @@ with LabsApiClient() as client:
     )
 ```
 
-Only use endpoints and request bodies supported by your API credentials and documentation.
+Paths must start with a single `/` and must not contain a query string; pass query values through `params`. The async client exposes the same helpers as coroutines. Only use endpoints and request bodies supported by your API credentials and documentation.
 
 ## Error handling
+
+`LabsAPIError` is the base class. `LabsAPIAuthError` covers 401 or a missing key, `LabsAPIPermissionError` covers 403, `LabsAPIRateLimitError` covers 429, `LabsAPIRequestError` covers other HTTP errors and `LabsAPIConnectionError` covers timeouts and network failures. Every error exposes `status_code`, `code`, `retry_after` and `response`.
 
 ```python
 from labs import (
@@ -148,6 +178,16 @@ except LabsAPIError as exc:
     print("Labs API error:", exc)
 ```
 
+## Telemetry
+
+This client sends a small set of telemetry headers by default to identify the SDK and runtime to your API: `X-SDK-Name`, `X-SDK-Version`, `X-SDK-Lang` and `X-SDK-Instance-Id` (a random UUID generated once per client).
+
+To disable telemetry, pass `telemetry=False` when creating the client:
+
+```python
+client = LabsApiClient(telemetry=False)
+```
+
 ## Development
 
 ```bash
@@ -155,13 +195,6 @@ python -m pip install -e .
 python -m pip install pytest
 python -m pytest -q
 ```
-
-## Links
-
-- Website: https://labs.conscherry.com/
-- API docs: https://labs.conscherry.com/developers/docs/v1
-- Source: https://github.com/conscherry/labs-api-python
-- npm SDK: https://www.npmjs.com/package/@conscherry/labs-api-python
 
 ## License
 
