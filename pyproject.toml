@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools>=68", "wheel"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "labs-api-python"
-version = "0.1.0"
+version = "1.0.0"
 description = "A user-friendly Python client for the Discord Labs API. This package makes it simple to fetch public data (bots, users, website stats) and post authenticated bot statistics."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -20,7 +20,7 @@ keywords = [
     "sdk"
 ]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",

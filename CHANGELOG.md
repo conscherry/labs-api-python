@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.0.0]
+## [1.0.0] - 2026-11-01
 - Initial release with `LabsApiClient` and `AsyncLabsApiClient`.
 - Server count alias normalization, telemetry headers and typed exceptions.
 - Fix `AsyncLabsApiClient` response parsing and make `get_bot_by_id` a coroutine.
